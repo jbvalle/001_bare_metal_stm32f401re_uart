@@ -37,13 +37,13 @@ typedef struct RCC_t{
 }RCC_t;
 
 typedef struct GPIOx_t{
-	__IO uint32_t GPIOx_MODER; 		//0x00
-	__IO uint32_t GPIOx_OTYPER;		//0x04
-	__IO uint32_t GPIOx_OSPEEDER;	//0x08
-	__IO uint32_t GPIOx_PUPDR;		//0x0C
-	__IO uint32_t GPIOx_IDR;			//0x10
-	__IO uint32_t GPIOx_ODR;			//0x14
-	__IO uint32_t GPIOx_BSRR;		//0x18
+	__IO uint32_t GPIOx_MODER; 		
+	__IO uint32_t GPIOx_OTYPER;	
+	__IO uint32_t GPIOx_OSPEEDER;	
+	__IO uint32_t GPIOx_PUPDR;	
+	__IO uint32_t GPIOx_IDR;
+	__IO uint32_t GPIOx_ODR;	
+	__IO uint32_t GPIOx_BSRR;	
 	__IO uint32_t GPIOx_LCKR;
 	__IO uint32_t GPIOx_AFRL;
 	__IO uint32_t GPIOx_AFRH;
