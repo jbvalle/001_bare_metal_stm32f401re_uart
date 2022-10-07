@@ -86,7 +86,7 @@ void USART2_init(void){
 
     // 4. Enable Alternjate Function for PA2 over MODER by setting 0b10
     GPIOA->GPIOx_MODER &= ~(3 << (2 * 2));
-    GPIOA->GPIOx_MODER |=  (7 << (2 * 2));
+    GPIOA->GPIOx_MODER |=  (2 << (2 * 2));
 
     // 5. Set Baudrate to 9600 -> BRR = USARTDIV -> 16/(Sample * Baud) = 104.166666 -> Mantissa = 104 | Fraction = (USARTDIV - Mantissa) * oversample ~ 3
     USART2->USART_BRR = ((0x68 << 4) | 0x3);
