@@ -66,6 +66,7 @@ int main(void){
 
     // Set PA5 as OUTPUT
     GPIOA->GPIOx_MODER &= ~(3 << (PIN_5 * MODER_WIDTH));
+    GPIOA->GPIOx_MODER |=  (1 << (PIN_5 * MODER_WIDTH));
 
     for(;;){
         // Toggle PA5
