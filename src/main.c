@@ -80,19 +80,25 @@ void USART2_init(void){
     // 2. Enable UART2 Clock P17
     RCC->RCC_APB1ENR |= (1 << 17);
 
-    // 3. Configure AF07 for PA2 -> UART2_TX 
+    // 3. Configure AF07 for PA2 and PA3 -> UART2_TX USART2_RX
     GPIOA->GPIOx_AFRL &= ~(0xF << (2 * 4));
     GPIOA->GPIOx_AFRL |=  (7   << (2 * 4));
 
-    // 4. Enable Alternjate Function for PA2 over MODER by setting 0b10
+    GPIOA->GPIOx_AFRL &= ~(0xF << (3 * 4));
+    GPIOA->GPIOx_AFRL |=  (7   << (3 * 4));
+
+    // 4. Enable Alternjate Function for PA2 and PA3 over MODER by setting 0b10
     GPIOA->GPIOx_MODER &= ~(3 << (2 * 2));
     GPIOA->GPIOx_MODER |=  (2 << (2 * 2));
 
+    GPIOA->GPIOx_MODER &= ~(3 << (3 * 2));
+    GPIOA->GPIOx_MODER |=  (2 << (3 * 2));
     // 5. Set Baudrate to 9600 -> BRR = USARTDIV -> 16/(Sample * Baud) = 104.166666 -> Mantissa = 104 | Fraction = (USARTDIV - Mantissa) * oversample ~ 3
     USART2->USART_BRR = ((0x68 << 4) | 0x3);
 
-    // 6. Enable TX CR1[3] , set word length to 8 CR1[12]
+    // 6. Enable TX CR1[3], Enable RX CR1[2] , set word length to 8 CR1[12]
     USART2->USART_CR1 |= (1 << 3);
+    USART2->USART_CR1 |= (1 << 2);
     USART2->USART_CR1 &= ~(1 << 12);
 
     // 7. Set 1 Stop Bit
@@ -106,23 +112,25 @@ void USART2_init(void){
 }
 
 void USART2_write(uint8_t ch){
+    // Wait until SR[7] = TXE Byte has been shifted to shift register
     while(!((USART2->USART_SR & (1 << 7))));
     USART2->USART_DR = (ch & 0xFF);
 }
 
+uint8_t USART2_read(void){
+    // Wait until content of shift register has finished shifting byte to input data register checkking SR[5]
+    while(!((USART2->USART_SR) & (1 << 5)));
+    return USART2->USART_DR;
+}
+
 int main(void){
 
-
-    uint8_t word[13] = "Hello There\n\0";
-    
     USART2_init();
 
     for(;;){
 
-        for(int i = 0; i < 12; i++){
+        char c = USART2_read();
+        USART2_write(c);
 
-            USART2_write(word[i]);
-        }
-        ms_wait(2000);
     }
 }
