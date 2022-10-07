@@ -19,107 +19,111 @@ LOAD src/obj/stm32f401re_startup.o
                 0x08000000                g_pfnVector
                 0x08000118                        . = ALIGN (0x4)
 
-.test           0x08000118      0x120
+.test           0x08000118      0x1f0
                 0x08000118                        . = ALIGN (0x4)
  *(.text)
- .text          0x08000118       0x84 src/obj/main.o
+ .text          0x08000118      0x140 src/obj/main.o
                 0x08000118                ms_wait
-                0x08000154                main
- .text          0x0800019c       0x90 src/obj/stm32f401re_startup.o
-                0x0800019c                Reset_handler
-                0x08000224                UART2_handler
-                0x08000224                EXTI15_10_handler
-                0x08000224                DMA1_Stream7_handler
-                0x08000224                UART1_handler
-                0x08000224                TIM1_UP_TIM10_handler
-                0x08000224                EXTI0_handler
-                0x08000224                DMA1_Stream1_handler
-                0x08000224                SDIO_handler
-                0x08000224                NMI_handler
-                0x08000224                DMA2_Stream3_handler
-                0x08000224                TIM2_handler
-                0x08000224                SPI3_handler
-                0x08000224                TIM3_handler
-                0x08000224                WWDG_handler
-                0x08000224                UART6_handler
-                0x08000224                SPI2_handler
-                0x08000224                UsuageFault_handler
-                0x08000224                SVCall_handler
-                0x08000224                DMA2_Stream6_handler
-                0x08000224                DebugMonitor_handler
-                0x08000224                I2C3_ER_handler
-                0x08000224                DMA1_Stream3_handler
-                0x08000224                MemManage_handler
-                0x08000224                SPI4_handler
-                0x08000224                HardFault_handler
-                0x08000224                DMA1_Stream5_handler
-                0x08000224                FPU_handler
-                0x08000224                DMA2_Stream5_handler
-                0x08000224                EXITI21_TAMP_STAMP_handler
-                0x08000224                EXTI18_OTG_FS_WKUP_handler
-                0x08000224                RCC_handler
-                0x08000224                Systick_handler
-                0x08000224                EXTI2_handler
-                0x08000224                DMA2_Stream1_handler
-                0x08000224                I2C1_ER_handler
-                0x08000224                EXTI9_5__handler
-                0x08000224                EXTI17_RTC_Alarm_handler
-                0x08000224                I2C2_EV_handler
-                0x08000224                EXITI22_RTC_WKUP_handler
-                0x08000224                EXTI3_handler
-                0x08000224                DMA2_Stream0_handler
-                0x08000224                FLASH_handler
-                0x08000224                OTG_FS_handler
-                0x08000224                DMA1_Stream4_handler
-                0x08000224                I2C2_ER_handler
-                0x08000224                TIM1_BRK_TIM9_handler
-                0x08000224                TIM4_handler
-                0x08000224                DMA1_Stream2_handler
-                0x08000224                EXTI4_handler
-                0x08000224                DMA1_Stream6_handler
-                0x08000224                ADC_handler
-                0x08000224                I2C1_EV_handler
-                0x08000224                SPI1_handler
-                0x08000224                DMA2_Stream4_handler
-                0x08000224                PendSV_handler
-                0x08000224                DMA2_Stream7_handler
-                0x08000224                DMA1_Stream0_handler
-                0x08000224                DMA2_Stream2_handler
-                0x08000224                EXTI1_handler
-                0x08000224                TIM1_TRG_COM_TIM11_handler
-                0x08000224                TIM5_handler
-                0x08000224                EXITI16_PVD__handler
-                0x08000224                I2C3_EV_handler
-                0x08000224                BusFault_handler
-                0x08000224                TIM1_CC_handler
-                0x08000224                Default_handler
+                0x08000154                USART2_init
+                0x080001ec                USART2_write
+                0x08000218                main
+ .text          0x08000258       0x90 src/obj/stm32f401re_startup.o
+                0x08000258                Reset_handler
+                0x080002e0                UART2_handler
+                0x080002e0                EXTI15_10_handler
+                0x080002e0                DMA1_Stream7_handler
+                0x080002e0                UART1_handler
+                0x080002e0                TIM1_UP_TIM10_handler
+                0x080002e0                EXTI0_handler
+                0x080002e0                DMA1_Stream1_handler
+                0x080002e0                SDIO_handler
+                0x080002e0                NMI_handler
+                0x080002e0                DMA2_Stream3_handler
+                0x080002e0                TIM2_handler
+                0x080002e0                SPI3_handler
+                0x080002e0                TIM3_handler
+                0x080002e0                WWDG_handler
+                0x080002e0                UART6_handler
+                0x080002e0                SPI2_handler
+                0x080002e0                UsuageFault_handler
+                0x080002e0                SVCall_handler
+                0x080002e0                DMA2_Stream6_handler
+                0x080002e0                DebugMonitor_handler
+                0x080002e0                I2C3_ER_handler
+                0x080002e0                DMA1_Stream3_handler
+                0x080002e0                MemManage_handler
+                0x080002e0                SPI4_handler
+                0x080002e0                HardFault_handler
+                0x080002e0                DMA1_Stream5_handler
+                0x080002e0                FPU_handler
+                0x080002e0                DMA2_Stream5_handler
+                0x080002e0                EXITI21_TAMP_STAMP_handler
+                0x080002e0                EXTI18_OTG_FS_WKUP_handler
+                0x080002e0                RCC_handler
+                0x080002e0                Systick_handler
+                0x080002e0                EXTI2_handler
+                0x080002e0                DMA2_Stream1_handler
+                0x080002e0                I2C1_ER_handler
+                0x080002e0                EXTI9_5__handler
+                0x080002e0                EXTI17_RTC_Alarm_handler
+                0x080002e0                I2C2_EV_handler
+                0x080002e0                EXITI22_RTC_WKUP_handler
+                0x080002e0                EXTI3_handler
+                0x080002e0                DMA2_Stream0_handler
+                0x080002e0                FLASH_handler
+                0x080002e0                OTG_FS_handler
+                0x080002e0                DMA1_Stream4_handler
+                0x080002e0                I2C2_ER_handler
+                0x080002e0                TIM1_BRK_TIM9_handler
+                0x080002e0                TIM4_handler
+                0x080002e0                DMA1_Stream2_handler
+                0x080002e0                EXTI4_handler
+                0x080002e0                DMA1_Stream6_handler
+                0x080002e0                ADC_handler
+                0x080002e0                I2C1_EV_handler
+                0x080002e0                SPI1_handler
+                0x080002e0                DMA2_Stream4_handler
+                0x080002e0                PendSV_handler
+                0x080002e0                DMA2_Stream7_handler
+                0x080002e0                DMA1_Stream0_handler
+                0x080002e0                DMA2_Stream2_handler
+                0x080002e0                EXTI1_handler
+                0x080002e0                TIM1_TRG_COM_TIM11_handler
+                0x080002e0                TIM5_handler
+                0x080002e0                EXITI16_PVD__handler
+                0x080002e0                I2C3_EV_handler
+                0x080002e0                BusFault_handler
+                0x080002e0                TIM1_CC_handler
+                0x080002e0                Default_handler
  *(.rodata)
- .rodata        0x0800022c        0xc src/obj/main.o
-                0x0800022c                GPIOA
-                0x08000230                GPIOB
-                0x08000234                RCC
-                0x08000238                        . = ALIGN (0x4)
-                0x08000238                        __etext = .
+ .rodata        0x080002e8       0x1d src/obj/main.o
+                0x080002e8                GPIOA
+                0x080002ec                GPIOB
+                0x080002f0                RCC
+                0x080002f4                USART2
+                0x08000308                        . = ALIGN (0x4)
+ *fill*         0x08000305        0x3 
+                0x08000308                        __etext = .
 
-.glue_7         0x08000238        0x0
- .glue_7        0x08000238        0x0 linker stubs
+.glue_7         0x08000308        0x0
+ .glue_7        0x08000308        0x0 linker stubs
 
-.glue_7t        0x08000238        0x0
- .glue_7t       0x08000238        0x0 linker stubs
+.glue_7t        0x08000308        0x0
+ .glue_7t       0x08000308        0x0 linker stubs
 
-.vfp11_veneer   0x08000238        0x0
- .vfp11_veneer  0x08000238        0x0 linker stubs
+.vfp11_veneer   0x08000308        0x0
+ .vfp11_veneer  0x08000308        0x0 linker stubs
 
-.v4_bx          0x08000238        0x0
- .v4_bx         0x08000238        0x0 linker stubs
+.v4_bx          0x08000308        0x0
+ .v4_bx         0x08000308        0x0 linker stubs
 
-.iplt           0x08000238        0x0
- .iplt          0x08000238        0x0 src/obj/main.o
+.iplt           0x08000308        0x0
+ .iplt          0x08000308        0x0 src/obj/main.o
 
-.rel.dyn        0x08000238        0x0
- .rel.iplt      0x08000238        0x0 src/obj/main.o
+.rel.dyn        0x08000308        0x0
+ .rel.iplt      0x08000308        0x0 src/obj/main.o
 
-.data           0x20000000        0x0 load address 0x08000238
+.data           0x20000000        0x0 load address 0x08000308
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        __sdata = .
  *(.data)
@@ -128,10 +132,10 @@ LOAD src/obj/stm32f401re_startup.o
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        __edata = .
 
-.igot.plt       0x20000000        0x0 load address 0x08000238
+.igot.plt       0x20000000        0x0 load address 0x08000308
  .igot.plt      0x20000000        0x0 src/obj/main.o
 
-.bss            0x20000000        0x0 load address 0x08000238
+.bss            0x20000000        0x0 load address 0x08000308
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        __sbss = .
  *(.bss)
@@ -143,13 +147,13 @@ LOAD src/obj/stm32f401re_startup.o
 OUTPUT(debug/main.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_info     0x00000000      0x4c0
- .debug_info    0x00000000      0x326 src/obj/main.o
- .debug_info    0x00000326      0x19a src/obj/stm32f401re_startup.o
+.debug_info     0x00000000      0x5f6
+ .debug_info    0x00000000      0x45c src/obj/main.o
+ .debug_info    0x0000045c      0x19a src/obj/stm32f401re_startup.o
 
-.debug_abbrev   0x00000000      0x21f
- .debug_abbrev  0x00000000      0x111 src/obj/main.o
- .debug_abbrev  0x00000111      0x10e src/obj/stm32f401re_startup.o
+.debug_abbrev   0x00000000      0x276
+ .debug_abbrev  0x00000000      0x168 src/obj/main.o
+ .debug_abbrev  0x00000168      0x10e src/obj/stm32f401re_startup.o
 
 .debug_aranges  0x00000000       0x40
  .debug_aranges
@@ -157,14 +161,14 @@ LOAD linker stubs
  .debug_aranges
                 0x00000020       0x20 src/obj/stm32f401re_startup.o
 
-.debug_line     0x00000000      0x269
- .debug_line    0x00000000      0x11f src/obj/main.o
- .debug_line    0x0000011f      0x14a src/obj/stm32f401re_startup.o
+.debug_line     0x00000000      0x2d1
+ .debug_line    0x00000000      0x187 src/obj/main.o
+ .debug_line    0x00000187      0x14a src/obj/stm32f401re_startup.o
 
-.debug_str      0x00000000      0x341
- .debug_str     0x00000000      0x2b0 src/obj/main.o
-                                0x2ed (size before relaxing)
- .debug_str     0x000002b0       0x91 src/obj/stm32f401re_startup.o
+.debug_str      0x00000000      0x3b3
+ .debug_str     0x00000000      0x32c src/obj/main.o
+                                0x371 (size before relaxing)
+ .debug_str     0x0000032c       0x87 src/obj/stm32f401re_startup.o
                                 0x1c2 (size before relaxing)
 
 .comment        0x00000000       0x4c
@@ -179,6 +183,6 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000002e       0x2e src/obj/stm32f401re_startup.o
 
-.debug_frame    0x00000000       0xa0
- .debug_frame   0x00000000       0x54 src/obj/main.o
- .debug_frame   0x00000054       0x4c src/obj/stm32f401re_startup.o
+.debug_frame    0x00000000       0xec
+ .debug_frame   0x00000000       0xa0 src/obj/main.o
+ .debug_frame   0x000000a0       0x4c src/obj/stm32f401re_startup.o

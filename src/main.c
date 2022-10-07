@@ -36,6 +36,17 @@ typedef struct RCC_t{
 	__IO uint32_t RCC_DCKCFGR;
 }RCC_t;
 
+typedef struct USART_t{
+
+    __IO uint32_t USART_SR;
+    __IO uint32_t USART_DR;
+    __IO uint32_t USART_BRR;
+    __IO uint32_t USART_CR1;
+    __IO uint32_t USART_CR2;
+    __IO uint32_t USART_CR3;
+    __IO uint32_t USART_GTPR;
+}USART_t;
+
 typedef struct GPIOx_t{
 	__IO uint32_t GPIOx_MODER; 		
 	__IO uint32_t GPIOx_OTYPER;	
@@ -53,24 +64,62 @@ typedef struct GPIOx_t{
 GPIOx_t * const GPIOA = (GPIOx_t *)0x40020000;
 GPIOx_t * const GPIOB = (GPIOx_t *)0x40020400;
 RCC_t   * const RCC   = (RCC_t   *)0x40023800;
+USART_t * const USART2 = (USART_t *)0x40004400;
 
 void ms_wait(int time){
     for(int i = 0; i < time; i++){
         for(int j = 0; j < 1600; j++);
     }
 }
-int main(void){
 
-    // Enable GPIOA
+void USART2_init(void){
+
+    // 1. Enable GPIOA Clock
     RCC->RCC_AHB1ENR |= 1;
 
-    // Set PA5 as OUTPUT
-    GPIOA->GPIOx_MODER &= ~(3 << (PIN_5 * MODER_WIDTH));
-    GPIOA->GPIOx_MODER |=  (1 << (PIN_5 * MODER_WIDTH));
+    // 2. Enable UART2 Clock P17
+    RCC->RCC_APB1ENR |= (1 << 17);
 
+    // 3. Configure AF07 for PA2 -> UART2_TX 
+    GPIOA->GPIOx_AFRL &= ~(0xF << (2 * 4));
+    GPIOA->GPIOx_AFRL |=  (7   << (2 * 4));
+
+    // 4. Enable Alternjate Function for PA2 over MODER by setting 0b10
+    GPIOA->GPIOx_MODER &= ~(3 << (2 * 2));
+    GPIOA->GPIOx_MODER |=  (7 << (2 * 2));
+
+    // 5. Set Baudrate to 9600 -> BRR = USARTDIV -> 16/(Sample * Baud) = 104.166666 -> Mantissa = 104 | Fraction = (USARTDIV - Mantissa) * oversample ~ 3
+    USART2->USART_BRR = ((0x68 << 4) | 0x3);
+
+    // 6. Enable TX CR1[3] , set word length to 8 CR1[12]
+    USART2->USART_CR1 |= (1 << 3);
+    USART2->USART_CR1 &= ~(1 << 12);
+
+    // 7. Set 1 Stop Bit
+    USART2->USART_CR2 = 0x0000;
+    
+    // 8. Disable flow control
+    USART2->USART_CR3 = 0x0000;
+
+    // 9. Enable CR1[13] USART Enable
+    USART2->USART_CR1 |= (1 << 13);
+}
+
+void USART2_write(uint8_t ch){
+    while(!((USART2->USART_SR & (1 << 7))));
+    USART2->USART_DR = (ch & 0xFF);
+}
+
+int main(void){
+
+
+    uint8_t word[13] = "Hello There\n\0";
     for(;;){
-        // Toggle PA5
-        GPIOA->GPIOx_ODR ^= (1 << PIN_5);
-        ms_wait(100);
+
+        for(int i = 0; i < 12; i++){
+
+            USART2_write(word[i]);
+        }
+        ms_wait(2000);
     }
 }
