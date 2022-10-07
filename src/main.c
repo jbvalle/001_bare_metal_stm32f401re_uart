@@ -116,10 +116,7 @@ int main(void){
     uint8_t word[13] = "Hello There\n\0";
     for(;;){
 
-        for(int i = 0; i < 12; i++){
-
-            USART2_write(word[i]);
-        }
+        USART2_write('Y');
         ms_wait(2000);
     }
 }
