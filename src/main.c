@@ -120,7 +120,6 @@ void USART2_write(uint8_t ch){
 uint8_t USART2_read(void){
     // Wait until content of shift register has finished shifting byte to input data register checkking SR[5]
     while(!((USART2->USART_SR) & (1 << 5)));
-    GPIOA->GPIOx_ODR ^= (1 << 5);
     return USART2->USART_DR;
 }
 
@@ -130,6 +129,7 @@ void on_sequence(void){
     for(int i = 0 ; i < 14; i++){
         USART2_write(sequence[i]);
     }
+    GPIOA->GPIOx_ODR |= (1 << 5);
 }
 
 void off_sequence(void){
@@ -138,7 +138,9 @@ void off_sequence(void){
     for(int i = 0 ; i < 16; i++){
         USART2_write(sequence[i]);
     }
+    GPIOA->GPIOx_ODR &= ~(1 << 5);
 }
+
 int main(void){
 
     USART2_init();
