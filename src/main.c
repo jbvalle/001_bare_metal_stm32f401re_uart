@@ -124,6 +124,21 @@ uint8_t USART2_read(void){
     return USART2->USART_DR;
 }
 
+void on_sequence(void){
+    uint8_t sequence[] = "LED activated\n\0";
+
+    for(int i = 0 ; i < 14; i++){
+        USART2_write(sequence[i]);
+    }
+}
+
+void off_sequence(void){
+    uint8_t sequence[] = "LED deactivated\n\0";
+
+    for(int i = 0 ; i < 16; i++){
+        USART2_write(sequence[i]);
+    }
+}
 int main(void){
 
     USART2_init();
@@ -133,9 +148,8 @@ int main(void){
 
     for(;;){
 
-        char c = USART2_read();
-        USART2_write('X');
-        USART2_write(c);
-
+        uint8_t input = USART2_read();
+        (input == '1') ?
+            on_sequence() : off_sequence();
     }
 }
