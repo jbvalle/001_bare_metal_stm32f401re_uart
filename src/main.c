@@ -134,6 +134,7 @@ int main(void){
     for(;;){
 
         char c = USART2_read();
+        USART2_write('X');
         USART2_write(c);
 
     }
