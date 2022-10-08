@@ -123,13 +123,25 @@ uint8_t USART2_read(void){
     return USART2->USART_DR;
 }
 
+void wait(int time){
+
+    for(int i = 0; i < time; i++){
+        for(int j = 0; j < 1600; j++);
+    }
+}
+
 void on_sequence(void){
     uint8_t sequence[] = "LED activated\n\0";
 
     for(int i = 0 ; i < 14; i++){
         USART2_write(sequence[i]);
     }
-    GPIOA->GPIOx_ODR |= (1 << 5);
+    for(int i = 0; i < 20; i++){
+
+        GPIOA->GPIOx_ODR ^= (1 << 5);
+        wait(100);
+    }
+    GPIOA->GPIOx_ODR &= ~(1 << 5);
 }
 
 void off_sequence(void){

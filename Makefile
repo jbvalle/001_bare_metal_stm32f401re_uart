@@ -6,6 +6,9 @@ INC_D = inc
 DEBUG_D = debug
 STARTUP_D = startup
 
+STLINKV2_CONFIG_PATH=/usr/share/openocd/scripts/interface/stlink-v2.cfg
+MC_CONFIG_PATH=/usr/share/openocd/scripts/target/stm32f4x.cfg
+
 SRC  = $(wildcard $(SRC_D)/*.c)
 SRC += $(wildcard $(STARTUP_D)/*.c)
 OBJ := $(patsubst $(SRC_D)/%.c, $(SRC_D)/$(OBJ_D)/%.o, $(SRC))
@@ -29,6 +32,11 @@ $(SRC_D)/$(OBJ_D)/%.o : $(STARTUP_D)/%.c | mk_obj_d
 
 $(TARGET) : $(OBJ) | mk_debug_d
 	$(CC) $(LFLAGS) -o $@ $^
+
+flash:
+	openocd -f $(STLINKV2_CONFIG_PATH) -f $(MC_CONFIG_PATH) &
+	gdb-multiarch $(TARGET) -x init.gdb
+	pkill openocd
 
 mk_obj_d:
 	mkdir -p $(SRC_D)/$(OBJ_D)
